@@ -2,6 +2,7 @@ package com.pubudu.demorest;
 
 import java.util.List;
 
+import javax.websocket.server.PathParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -14,11 +15,20 @@ public class AlienResource {
 	AlienRepository repo = new AlienRepository();
 	
 	@GET
-	@Produces(MediaType.APPLICATION_XML)
-	public List<Alien> getAlien() {
+	@Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
+	public List<Alien> getAliens() {
 		System.out.println("getAlien called...");
 		return repo.getAliens();
 	}
+	  
+	@GET
+	@Path("/alien/{id}")
+	@Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
+	public Alien getAlien(@PathParam("id") int id){
+		System.out.println(id);
+		return repo.getAlien(id);
+	}
+	
 	@POST
 	@Path("alien")
 	public Alien createAlien(Alien a1) {
