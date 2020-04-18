@@ -83,4 +83,29 @@ public class AlienRepository {
 		}
 	}
 	
+	public void update(Alien a1) {
+		String sql = "update alien set name=?, points=? where id=?";
+		try {
+			PreparedStatement st = con.PreparedStatement(sql);
+			st.setString(1,  a1.getName());
+			st.setInt(2, a1.getPoints());
+			st.setInt(3,  a1.getId());
+			st.executeUpdate();
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	public void delete(int id) {
+		String sql = "delete from alien where id=? ";
+		try {
+			PreparedStatement st = con.PreparedStatement(sql);
+			st.setInt(1, id);
+			st.executeUpdate();
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		
+	}
+	
 }
